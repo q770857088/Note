@@ -1,0 +1,63 @@
+有两种做法,先看第一种
+
+
+一、通过命令行进行操作
+
+例如我有下面两个仓库:
+
+Mybatis通用Mapper
+
+https://git.oschina.net/free/Mapper.git
+https://github.com/abel533/Mapper.git
+
+在项目路径下打开git Bash
+
+添加一个remote,这里是all,也可以是别的名字
+
+输入:git remote add all https://git.oschina.NET/free/Mapper.git
+
+再添加另一个:git remote set-url --add all https://github.com/abel533/Mapper.git
+
+如果有多个,按照上面这一个命令进行添加.
+
+提交的时候输入:git push all --all
+
+这样就会一次提交到多个库了,上面命令输出如下:
+
+[plain] view plain copy
+$ git push all --all
+Counting objects: 19, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (10/10), 644 bytes | 0 bytes/s, done.
+Total 10 (delta 3), reused 0 (delta 0)
+To https://github.com/abel533/Mapper.git
+5b83845..ebd3836  master -> master
+Counting objects: 19, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (10/10), 644 bytes | 0 bytes/s, done.
+Total 10 (delta 3), reused 0 (delta 0)
+To https://git.oschina.net/free/Mapper.git
+5b83845..ebd3836  master -> master
+
+在操作完上面的添加命令后，如果我们打开.git/config文件,我们可以看到这样的配置:
+[plain] view plain copy
+[remote "all"]
+url = https://github.com/abel533/Mapper.git
+fetch = +refs/heads/*:refs/remotes/all/*
+url = https://git.oschina.net/free/Mapper.git
+
+从这个配置可以引出我们的第二种方法.
+
+二、直接配置.git/config文件
+
+在配置中添加:
+
+[plain] view plain copy
+[remote "all"]
+url = https://github.com/abel533/Mapper.git
+url = https://git.oschina.net/free/Mapper.git
+
+有多少个远程库,就配置多少个url即可.
+从这里可以看出,第一种方法生成的配置中还有一个fetch配置,这个配置可以完全去掉.
